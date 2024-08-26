@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs4nalblhwppc"]
+
+[ext_resource type="Texture2D" uid="uid://ckj6bqr8ttj1u" path="res://assets/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_Assets/UI/selectbox_tl.png" id="1_16yjl"]
+[ext_resource type="Texture2D" uid="uid://cnktu28rwrk3x" path="res://assets/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_Assets/UI/selectbox_tr.png" id="2_5iguw"]
+[ext_resource type="Texture2D" uid="uid://bqwubu7apsnes" path="res://assets/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_Assets/UI/selectbox_bl.png" id="3_58eof"]
+[ext_resource type="Texture2D" uid="uid://csxnxatwl6664" path="res://assets/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_Assets/UI/selectbox_br.png" id="4_8mceg"]
+
+[sub_resource type="GDScript" id="GDScript_bybbu"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	Globals.cursor_hover_new.connect(hover_selection)
+	Globals.input_select_just_pressed.connect(select)
+	Globals.input_context_just_pressed.connect(context)
+
+func hover_selection(new_position : Vector2i) -> void:
+	var tween = create_tween()
+	tween.tween_property(self, \"position\", Vector2(new_position.snapped(Globals.tile_snap_vec)), 0.1).set_trans(Tween.TRANS_SINE)
+
+func select() -> void:
+	# animations n stuff
+	pass
+
+func context() -> void:
+	# animations n stuff
+	pass
+"
+
+[node name="CursorSelector" type="Node2D"]
+z_index = 40
+script = SubResource("GDScript_bybbu")
+
+[node name="CornerTL" type="Sprite2D" parent="."]
+position = Vector2(-8, -8)
+texture = ExtResource("1_16yjl")
+
+[node name="CornerTR" type="Sprite2D" parent="."]
+position = Vector2(8, -8)
+texture = ExtResource("2_5iguw")
+
+[node name="CornerBL" type="Sprite2D" parent="."]
+position = Vector2(-8, 8)
+texture = ExtResource("3_58eof")
+
+[node name="CornerBR" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("4_8mceg")

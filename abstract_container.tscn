@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://b47366c0wdb5"]
+
+[ext_resource type="PackedScene" uid="uid://7fuyejytcwhr" path="res://game.tscn" id="1_haltm"]
+
+[sub_resource type="GDScript" id="GDScript_npgeq"]
+script/source = "extends Label
+
+@onready var timer : Timer = $Timer
+
+var running : bool = false
+
+func _ready() -> void:
+	Globals.round_timer_sync.connect(synchronize)
+
+func synchronize(time_left : float, is_running : bool) -> void:
+	running = is_running
+	if running:
+		timer.start(time_left)
+	else:
+		timer.stop()
+
+func _process(delta: float) -> void:
+	if running:
+		text = str(timer.time_left).pad_decimals(1)
+	else:
+		text = \"Intermission Time :)\"
+"
+
+[node name="AbstractContainer" type="Node"]
+
+[node name="GameView" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="GameView/SubViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(1600, 1000)
+size_2d_override = Vector2i(160, 100)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Game" parent="GameView/SubViewportContainer/SubViewport" instance=ExtResource("1_haltm")]
+
+[node name="UI" type="Control" parent="."]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoundTimerUI" type="Label" parent="UI"]
+top_level = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = SubResource("GDScript_npgeq")
+
+[node name="Timer" type="Timer" parent="UI/RoundTimerUI"]
+wait_time = 30.0

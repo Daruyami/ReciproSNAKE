@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxsy0lta284ss"]
+
+[ext_resource type="PackedScene" uid="uid://cfsnogcjvnw2d" path="res://player.tscn" id="1_0r0ev"]
+[ext_resource type="TileSet" uid="uid://cq1x02h8yyjne" path="res://assets/atlas_sunnyside_world.tres" id="1_mkj3y"]
+
+[sub_resource type="GDScript" id="GDScript_7dkbb"]
+script/source = "extends Node2D
+
+@onready var tile_map_layer : TileMapLayer = $TileMapLayer
+
+var tile_width : int = Globals.tile_width
+var tile_height : int = Globals.tile_height
+var tile_snap_vec : Vector2i = Globals.tile_snap_vec
+
+var world_size : Vector2i
+
+var entity_grid_container = []
+
+var cursor_scene : PackedScene = preload(\"res://cursor.tscn\")
+var cursor_selector_scene : PackedScene = preload(\"res://cursor_selector.tscn\")
+
+var cursor : Area2D
+var cursor_selector : Node2D
+var hovered_position : Vector2i
+
+func _init() -> void:
+	pass
+
+func _ready() -> void:
+	Globals.world_generate.connect(generate)
+	Globals.cursor_hover_new.connect(hover_selection)
+	Globals.input_select_just_pressed.connect(select)
+	Globals.input_context_just_pressed.connect(context)
+
+func generate(size : Vector2i = Vector2i(16, 16)) -> void:
+	world_size = size
+	
+	for i : int in world_size.x:
+		entity_grid_container.append([])
+		for j : int in world_size.y:
+			var tile_pos = Vector2i(i,j)
+			if (i+j)%2:
+				tile_map_layer.set_cell(tile_pos, 0, Vector2i(2,1) )
+			else:
+				tile_map_layer.set_cell(tile_pos, 0, Vector2i(1,1) )
+			populate(i,j)
+	add_cursor()
+
+func populate(i : int, j : int) -> void:
+	entity_grid_container[i].append(j)
+
+func add_cursor() -> void:
+	cursor = cursor_scene.instantiate()
+	cursor.position = Vector2(world_size.x*tile_width/2, world_size.y*tile_height/2)
+	add_child(cursor)
+	
+	cursor_selector = cursor_selector_scene.instantiate()
+	cursor_selector.position = cursor.position
+	cursor_selector.position.snapped(tile_snap_vec)
+	add_child(cursor_selector)
+
+func hover_selection(new_position : Vector2i) -> void:
+	hovered_position = new_position
+
+func select() -> void:
+	var grid_pos = hovered_position/16
+	print(\"cursor_selector.position = \", cursor_selector.position)
+	print(\"hovered_position = \", hovered_position)
+	print(\"hovered_position%16 = \", hovered_position%16)
+	print(\"hovered_position/16 = \", hovered_position/16)
+	print(entity_grid_container[grid_pos.x][grid_pos.y])
+	print()
+
+func context() -> void:
+	pass
+"
+
+[node name="World" type="Node2D"]
+script = SubResource("GDScript_7dkbb")
+
+[node name="Player" parent="." instance=ExtResource("1_0r0ev")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-8, -8)
+tile_set = ExtResource("1_mkj3y")

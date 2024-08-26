@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://csune218507sh"]
+
+[sub_resource type="GDScript" id="GDScript_ugnq5"]
+script/source = "extends Timer
+
+@onready var sync_timer : Timer = $Timer
+
+func _ready() -> void:
+	sync_timer.timeout.connect(synchronize)
+
+func synchronize() -> void:
+	Globals.round_timer_sync.emit(time_left, !is_stopped())
+	
+"
+
+[node name="RoundTimer" type="Timer"]
+process_callback = 0
+wait_time = 30.0
+script = SubResource("GDScript_ugnq5")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
