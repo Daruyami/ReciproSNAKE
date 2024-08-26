@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b47366c0wdb5"]
 
-[ext_resource type="PackedScene" uid="uid://7fuyejytcwhr" path="res://game.tscn" id="1_haltm"]
+[ext_resource type="PackedScene" uid="uid://7fuyejytcwhr" path="res://src/scenes/game.tscn" id="1_haltm"]
 
 [sub_resource type="GDScript" id="GDScript_npgeq"]
 script/source = "extends Label

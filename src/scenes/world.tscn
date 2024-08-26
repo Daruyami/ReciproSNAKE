@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxsy0lta284ss"]
 
-[ext_resource type="PackedScene" uid="uid://cfsnogcjvnw2d" path="res://player.tscn" id="1_0r0ev"]
+[ext_resource type="PackedScene" uid="uid://cfsnogcjvnw2d" path="res://src/scenes/player.tscn" id="1_0r0ev"]
 [ext_resource type="TileSet" uid="uid://cq1x02h8yyjne" path="res://assets/atlas_sunnyside_world.tres" id="1_mkj3y"]
 
 [sub_resource type="GDScript" id="GDScript_7dkbb"]
@@ -16,8 +16,8 @@ var world_size : Vector2i
 
 var entity_grid_container = []
 
-var cursor_scene : PackedScene = preload(\"res://cursor.tscn\")
-var cursor_selector_scene : PackedScene = preload(\"res://cursor_selector.tscn\")
+var cursor_scene : PackedScene = preload(\"res://src/scenes/cursor.tscn\")
+var cursor_selector_scene : PackedScene = preload(\"res://src/scenes/cursor_selector.tscn\")
 
 var cursor : Area2D
 var cursor_selector : Node2D

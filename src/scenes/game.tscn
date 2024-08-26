@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://7fuyejytcwhr"]
 
-[ext_resource type="PackedScene" uid="uid://csune218507sh" path="res://round_timer.tscn" id="2_6ivbm"]
+[ext_resource type="PackedScene" uid="uid://csune218507sh" path="res://src/scenes/round_timer.tscn" id="2_6ivbm"]
 
 [sub_resource type="GDScript" id="GDScript_lyiro"]
 script/source = "extends Node2D
 
-var world_scene : PackedScene = preload(\"res://world.tscn\")
+var world_scene : PackedScene = preload(\"res://src/scenes/world.tscn\")
 var world
 
 func _ready() -> void:

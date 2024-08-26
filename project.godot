@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="reciprosnake"
-run/main_scene="res://abstract_container.tscn"
+run/main_scene="res://src/scenes/abstract_container.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://globals.gd"
+Globals="*res://src/globals.gd"
 
 [display]
 

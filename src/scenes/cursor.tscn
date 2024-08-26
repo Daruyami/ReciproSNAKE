@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://sbmxth4mmkvq"]
 
-[ext_resource type="PackedScene" uid="uid://dalg5v2lb185a" path="res://player_camera.tscn" id="1_acw32"]
+[ext_resource type="PackedScene" uid="uid://dalg5v2lb185a" path="res://src/scenes/player_camera.tscn" id="1_acw32"]
 [ext_resource type="Texture2D" uid="uid://dx5wavkb23vl4" path="res://assets/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_ASSET_PACK_V2.1/Sunnyside_World_Assets/UI/select_dots_large.png" id="1_bke5d"]
 
 [sub_resource type="GDScript" id="GDScript_2nk2i"]
