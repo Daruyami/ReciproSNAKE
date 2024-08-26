@@ -20,6 +20,9 @@ mono_crash.*.json
 
 # End of https://www.toptal.com/developers/gitignore/api/godot
 
+# Exports
+.bin/
+
 # Ignore any non-whitelisted addons
 addons/*
 !addons/godot-git-plugin
